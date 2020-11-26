@@ -1,3 +1,40 @@
+const express = require("express");
+const app = express();
+
+app.listen(() => console.log("Server started"));
+
+app.use('/ping', (req, res) => {
+  res.send(new Date());
+});
+
+
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const cmd = require("node-cmd");
+const ms = require("ms");
+const fs = require('fs');
+const ytdl = require("ytdl-core");
+const canvas = require("canvas");
+const convert = require("hh-mm-ss")
+const fetchVideoInfo = require("youtube-info");
+const simpleytapi = require('simple-youtube-api')
+const util = require("util")
+const gif = require("gif-search");
+const jimp = require("jimp");
+const guild = require('guild');
+const hastebins = require('hastebin-gen');
+const getYoutubeID = require('get-youtube-id');
+const pretty = require("pretty-ms");
+const moment = require('moment');
+const request = require('request');
+const dateFormat = require('dateformat');
+
+////////////
+
+
+
+const prefix = "prefix"
+const developers = "your id"
 const cool = [];
 
 client.on('message',async message => {
@@ -38,7 +75,7 @@ client.on('message',async message => {
       message.channel.awaitMessages(m => m.author.id === message.author.id, {max: 1, time: 10000}).then(c => {
         if(c.first().content === number) {
           m.delete();
-          message.channel.send(`**:moneybag:| ${message.author.username}, has transferred \`${balance}\` to ${mention}**`);
+          message.channel.send(`**:moneybag:| ${message.author.username}, has transferred \`$${balance}\` to ${mention}**`);
           credits[author].credits += (-balance);
           credits[mention.id].credits += (+balance);
           fs.writeFile(path, JSON.stringify(credits, null, 5), function(err) {if(err) console.log(err)});
@@ -51,7 +88,7 @@ client.on('message',async message => {
   }
   if(!args[2]) {
     if(mention.bot) return message.channel.send(`**:thinking: | ${(message.author.username)} البوتات لا تملك أرصدة!**`);
-    message.channel.send(`:bank: | **${mention.username}, your account balance is **\`${credits[mention.id].credits}\`**.**`);
+    message.channel.send(`:bank: | **${mention.username}, your account balance is **\`$${credits[mention.id].credits}\`**.**`);
   }
  
   }
@@ -94,3 +131,7 @@ client.on('message',async message => {
     }, ms(""));
   }
 });
+
+
+
+client.login("bot token");
